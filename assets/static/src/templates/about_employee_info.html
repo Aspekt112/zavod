@@ -1,0 +1,68 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "about" %}">О компании</a> /
+                <a class="b-breadcrumbs__link" href="{% url "employee" %}">Сотрудники</a> /
+                {{ title }}
+            </div>
+
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h3 class="b-section-title">{{ employee.first_name }} {{ employee.last_name }}</h3>
+                    <a href="../" class="b-section-back">Назад к списку сотрудников</a>
+                </div>
+                <div class="grid__column-7">
+                    <ul class="b-tab">
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "about" %}">О заводе</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "nagrady" %}">Награды</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "partnery" %}">Партнеры</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "otzyvy" %}">Отзывы</a>
+                        </li>
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="{% url "employee" %}">Сотрудники</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "vacancy" %}">Вакансии</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="b-image">
+                    {% if employee.image %}
+                        <img src="{{ employee.image.image.url }}" alt="Пример награды">
+                    {% else %}
+                        <img src="{% static 'img/employee/example.png' %}" alt="Пример награды">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <p class="b-section-subtitle">{{ employee.position }}</p>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <p class="b-section-text">{{ employee.text }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

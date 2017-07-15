@@ -1,0 +1,65 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> /
+                {{ title }}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h3 class="b-section-title">Доставка</h3>
+                </div>
+                <div class="grid__column-7">
+                    <ul class="b-tab">
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="#">Доставка</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "mezhdunarodnaja_dostavka" %}">Международная
+                                доставка</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "geografija_prodazh" %}">География продаж</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-12">
+                    <p class="b-section-text">
+                        <a href="http://zavodtriumph.ru/catalog/">Продукция Завода Триумф</a> поставляется <a
+                            href="http://zavodtriumph.ru/partnery/">во все регионы России, а также страны
+                        СНГ</a> и <a href="http://zavodtriumph.ru/dostavka/mezhdunarodnaja-dostavka/">Европы</a>. <a
+                            href="http://zavodtriumph.ru/geografija-prodazh/">География продаж</a> постоянно
+                        расширяется. Мы стремимся максимально сократить расстояние между производственными цехами
+                        завода и объектами наших заказчиков.
+                    </p>
+                    <h2 class="b-section-subtitle">Калькуляторы транспортных компаний</h2>
+                    <p class="b-section-text">
+                        Помощь в подсчете стоимости доставки вы всегда можете получить у наших
+                        специалистов, позвонив в <a href="http://zavodtriumph.ru/contacts/">офис ближайшего города
+                        доставки</a> (или бесплатно: +7 800-555-92-20). А так же самостоятельно, используя
+                        калькуляторы транспортных компаний России.
+                    </p>
+                    <ul class="b-section-list">
+                        <li class="b-section-list__item"><a href="http://www.jde.ru/calc" target="_blank">Желдорэкспедиция</a>
+                        </li>
+                        <li class="b-section-list__item"><a href="http://www.dellin.ru/calculator/" target="_blank">Деловые
+                            линии</a></li>
+                        <li class="b-section-list__item"><a href="http://www.ae5000.ru/"
+                                                            target="_blank">Автотрейдинг</a></li>
+                        <li class="b-section-list__item"><a href="http://www.tk-kit.ru/calculator"
+                                                            target="_blank">Кит</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

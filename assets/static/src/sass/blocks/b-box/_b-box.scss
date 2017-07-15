@@ -1,0 +1,418 @@
+.b-box {
+	box-shadow: 0 0 4px rgba(0, 0, 0, .12),
+	1px 2px 4px rgba(0, 0, 0, .08);
+	position: relative;
+	background-color: #ffffff;
+	height: 100%;
+
+	&__wrapper {
+		padding: 16px 32px;
+
+		&:after {
+			content: " ";
+			visibility: hidden;
+			display: block;
+			height: 0;
+			clear: both;
+		}
+	}
+
+	&__image {
+		text-align: center;
+		margin: 0 auto 26px auto;
+		width: 180px;
+
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+
+		&-fullsize {
+			margin: 0 auto 8px auto;
+
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+		}
+
+		&-halfsize {
+			margin: 0;
+
+			img {
+				width: 360px;
+				height: 90px;
+			}
+		}
+	}
+
+	&__header {
+		font-size: 16.2px;
+		font-weight: 700;
+		color: #232323;
+		margin: 0 0 12px 0;
+		padding: 0;
+		display: block;
+		max-width: 440px;
+		word-wrap: break-word;
+
+		&-big {
+			font-size: 27px;
+			line-height: 28.8px;
+			margin: 0 0 17px 0;
+		}
+	}
+
+	&__author {
+		font-size: 9px;
+		text-transform: uppercase;
+		margin: 0 0 12px 0;
+		font-weight: 300;
+	}
+
+	&__text {
+		font-size: 12.6px;
+		font-weight: 300;
+		color: #292929;
+		line-height: 16.2px;
+		margin: 0;
+		word-wrap: break-word;
+	}
+
+	&__body {
+		overflow: hidden;
+	}
+
+	&__footer {
+		border-top: 1px solid #e8e8e8;
+
+		&-left, &-right {
+			float: left;
+			color: #777777;
+			font-size: 12.6px;
+			font-weight: 300;
+			line-height: 12.6px;
+		}
+
+		&-right {
+			float: right;
+			margin-left: 16px;
+
+			a {
+				color: #777777;
+				font-size: 12.6px;
+				font-weight: 300;
+				line-height: 12.6px;
+
+				&:hover {
+					color: #00955F;
+				}
+			}
+		}
+	}
+
+	&__sale {
+		position: absolute;
+		top: 18px;
+		right: -10px;
+		background-color: #b71613;
+		padding: 9px 9px 12px 8px;
+		color: #ffffff;
+		font-size: 9px;
+
+		&::after {
+			position: absolute;
+			content: " ";
+			border: 5px solid transparent;
+			border-left: 5px solid #7b0d0b;
+			border-top: 5px solid #7b0d0b;
+			bottom: -10px;
+			right: 0px;
+		}
+	}
+
+	// без наведения
+	&_nohover {
+	}
+
+	/* animation */
+	&:hover:not(&_nohover) {
+		box-shadow: 0 0 32px rgba(0, 0, 0, .01),
+		7px 11px 11px rgba(0, 0, 0, .17),
+		9px 16px 36px rgba(0, 0, 0, .3);
+	}
+
+	/* Colorful */
+
+	&-red {
+		background-color: #cb0a16;
+
+		.b-box__author {
+			color: #e6a5a7;
+		}
+
+		.b-box__text, .b-box__header {
+			color: #ffffff;
+		}
+	}
+
+	&-green {
+		background-color: #00955f;
+
+		.b-box__author {
+			color: #37ba8b;
+		}
+
+		.b-box__text, .b-box__header {
+			color: #ffffff;
+		}
+
+		.b-box__footer, .b-box__footer-left, .b-box__footer-right {
+			border-color: #26a577;
+			color: #80caaf;
+		}
+	}
+
+	&-black {
+		background-color: #131313;
+
+		.b-box__author {
+			color: #a7a7a7;
+		}
+
+		.b-box__text, .b-box__header {
+			color: #ffffff;
+		}
+	}
+
+	&-grey {
+		background: #f4f4f4;
+	}
+
+	// Без тени
+	&_noshadow {
+		box-shadow: none;
+	}
+
+	// Используется на странице faq
+	&_faq {
+		margin-bottom: 8px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	// Во многих местах боксы должы быть фиксированной высоты, увы
+	// Извини меня, человек, который это поддерживает
+	&_468 {
+		height: 468px !important; // это хак для слайдера, иначе ужимается низ, который абсолют
+
+		.b-box__image-fullsize {
+			margin: 0;
+
+			img {
+				height: 270px;
+				width: 100%;
+			}
+		}
+
+		.b-box__header-big {
+			max-width: 100%;
+		}
+
+		.b-box__body {
+			height: 153px;
+		}
+
+		.b-box__footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 45px;
+		}
+	}
+
+	&_388 {
+		height: 388px;
+
+		.b-box__image-fullsize {
+			margin: 0;
+
+			img {
+				height: 180px;
+				width: 100%;
+			}
+		}
+
+		.b-box__footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+
+	&_360 {
+		height: 360px;
+
+		.b-box__image {
+			width: auto;
+
+			img {
+				margin: 0 auto;
+				height: 150px;
+				width: auto;
+				max-width: 100%;
+			}
+		}
+
+		.b-box__wrapper {
+			position: relative;
+		}
+
+		.b-box__footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+
+			.b-box__wrapper {
+				position: static;
+			}
+		}
+	}
+
+	&_342 {
+		height: 342px;
+
+		.b-box__image-fullsize {
+			margin: 0;
+
+			img {
+				height: 171px;
+				width: 100%;
+			}
+		}
+
+		.b-box__body {
+			height: 171px;
+		}
+
+		.b-box__footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+
+	// расширенная карточка товаров
+	&_258 {
+		height: 258px;
+
+		.b-box__body, .b-box__footer {
+			display: block;
+			letter-spacing: normal;
+			height: 100%;
+			float: left;
+		}
+		.b-box__body {
+			width: 558px;
+
+			.b-box__header {
+				width: 100%;
+				text-overflow: ellipsis;
+				margin-bottom: 20px;
+			}
+
+			.b-box__image-fullsize {
+				width: 204px;
+				display: inline-block;
+				margin: 0 16px;
+				vertical-align: top;
+
+				img {
+					width: 100%;
+					height: 100%;
+
+				}
+			}
+
+			.b-box__property {
+				vertical-align: top;
+				display: inline-block;
+				width: 270px;
+			}
+		}
+		.b-box__footer {
+			width: 252px;
+			background-color: #f4f4f4;
+
+			.b-box__header {
+				width: 100%;
+				text-overflow: ellipsis;
+				margin-bottom: 32px;
+			}
+		}
+		.b-box__wrapper {
+			height: 100%;
+			overflow: hidden;
+			padding: 24px;
+		}
+	}
+
+	&_250 {
+		height: 250px;
+
+		.b-box__image-fullsize {
+			margin: 0;
+
+			img {
+				height: 96px;
+				width: 100%;
+			}
+		}
+
+		.b-box__footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+
+	&_205 {
+		height: 205px;
+
+		.b-box__footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+
+	&_90 {
+		height: 90px;
+
+		.b-box__wrapper {
+			height: 100%;
+			overflow: hidden;
+			padding-right: 50px;
+		}
+
+		.b-box__image {
+			float: left;
+			margin: 0 16px 0 0;
+			width: auto;
+
+			img {
+				height: 58px;
+				width: auto;
+				margin: 0;
+			}
+		}
+	}
+}

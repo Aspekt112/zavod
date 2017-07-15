@@ -1,0 +1,155 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> /
+                {{ title }}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h3 class="b-section-title">Прайс-листы</h3>
+                </div>
+                <div class="grid__column-6 grid__offset">
+                    <ul class="b-tab">
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="{% url "prajjsy" %}">Прайс-листы</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "gibkaja_sistema_skidok" %}">Гибкая система
+                                скидок</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-12">
+                    <p class="b-section-subtitle">В данном разделе Вы можете ознакомиться с
+                        ориентировочными ценами Завода Триумф на производимую продукцию.</p>
+                </div>
+                <div class="grid__column-7">
+                    <p class="b-section-text">Уважаемые клиенты! Обращаем ваше внимание, что прайсовые цены в настоящее
+                        время носят ознакомительный характер в связи с экономическим положением в сырьевом
+                        секторе.</p>
+                    <p class="b-section-text">Скидки зависят от объема запрашиваемой продукции.</p>
+                    <p class="b-section-text">Наши менеджеры рады помочь Вам с выбором и ценой.</p>
+                    <p class="b-section-text">Заказать данную продукцию можно:</p>
+                    <ul class="b-section-list">
+                        <li class="b-section-list__item">по бесплатному телефону 8 (800) 555 92 20</li>
+                        <li class="b-section-list__item">отправить заявку по почте <a
+                                href="mailto:info@zavodtriumph.ru">info@zavodtriumph.ru</a></li>
+                        <li class="b-section-list__item">через форму на сайте, а так же заказать обратный звонок.</li>
+                    </ul>
+
+                    <p class="b-section-text">Каждая заявка рассматривается индивидуально.</p>
+                    <p class="b-section-text">
+                        Узнайте <a href="http://zavodtriumph.ru/prajjsy/gibkaja-sistema-skidok/">подробнее</a> о ценовой
+                        политике завода Триумф.
+                    </p>
+                </div>
+            </div>
+            <div class="grid__row grid__row-btm">
+                <div class="grid__column-2">
+                    <a href="{{ vodovodjanye_podogrevateli.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Подогреватели водоводяные</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <a href="{{ parovodjanye_podogrevateli.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Подогреватели пароводяные</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <a href="{{ podogrevateli_parovye.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Подогреватели паровые емкостные ВПЕ (СТД)</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <a href="{{ serija_ts_565.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Грязевики горизонтальные ТС-565</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <a href="{{ serija_ts_566.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Грязевики горизонтальные ТС-566</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2 grid__offset-small ">
+                    <a href="{{ serija_ts_567.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Грязевики вертикальные ТС-567, ТС-568</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2">
+                    <a href="{{ grjazeviki_teplovykh_punktov.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Грязевики для тепловых пунктов (ГТП, абонентские ТС-569)</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <a href="{{ vozdukhosborniki_a1i.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Воздухосборники А1И</div>
+                    </div>
+                    </a>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <a href="{{ elevatory.price_list.url }}" class="b-category-list-group__list__item-link">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Элеваторы</div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="b-section__space"></div>
+                <p class="b-section-text">
+                    Для просмотра необходим <a href="http://get.adobe.com/reader/">Adobe Reader</a>
+                </p>
+            </div>
+        </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

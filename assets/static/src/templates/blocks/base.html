@@ -1,0 +1,75 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="{{ title }}">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,500,700&subset=latin,cyrillic-ext'
+          rel='stylesheet' type='text/css'>
+    <!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+<body>
+{% include "blocks/header.html" %}
+
+{% include "blocks/menu.html" %}
+
+{# Page content #}
+{% block content %}{% endblock %}
+
+{% include "blocks/footer.html" %}
+
+<script type="text/javascript" src="{% static 'js/vendor/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/modal.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/underscore.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/feather.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/feather.gallery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/slick.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/nouislider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/stickymenu/StickyMenu.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/slider/Slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/social-likes.min.js' %}"></script>
+
+{# TODO создать главный файл инициализации #}
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        // слайдер на главной
+        $('.js-slider').unslider({
+            infinite: true,
+            nav: false,
+            arrows: {
+                prev: '<a class="b-slider__arrow-left"></a>',
+                next: '<a class="b-slider__arrow-right"></a>'
+            }
+        });
+
+        var $menu = $('#b-menu');
+        if ($menu) {
+            $menu.sticky({
+                topSpacing: 0,
+                zIndex: 1040
+            });
+        }
+
+        $('#js-search').on('click', function (e) {
+            e.preventDefault();
+
+            $menu.toggleClass('search-toggle');
+        });
+
+        $.featherlight.defaults['loading'] = "<img src='{% static '/img/ajax-loader.gif' %}' />";
+    });
+</script>
+{% block extra-js %}{% endblock %}
+{% block extra-html %}{% endblock %}
+</body>
+</html>

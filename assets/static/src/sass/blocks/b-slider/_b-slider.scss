@@ -1,0 +1,30 @@
+.b-slider {
+
+	&__arrow-left, &__arrow-right {
+		position: absolute;
+		top: 50%;
+		width: 18px;
+		height: 32px;
+		z-index: 100;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	&__arrow-left {
+		background: url('../img/slider/arrow-left.png') center center no-repeat;
+		left: 0;
+	}
+	&__arrow-right {
+		background: url('../img/slider/arrow-right.png') center center no-repeat;
+		right: 0;
+	}
+
+	&__item {
+		// В случае одной картинки в центре
+		img {
+			margin: 0 auto;
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,212 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+{% load threadedcomments_tags %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="{% url "main" %}">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "news" %}">Новости</a> /
+            </div>
+            <div class="grid-fluid">
+                <div class="grid__row">
+                    <div class="grid__column-7">
+                        <div id="news-slider">
+                            {% comment %} Тут первые три новости {% endcomment %}
+                            {% for news in slider_news %}
+                                <div class="b-box b-box_nohover b-box_noshadow b-box_468 b-box-green">
+                                    <a class="b-link_pseudo" href="{% url "news_detail" news.slug %}"
+                                       title="{{ news.title }}">
+                                        <div class="b-box__image-fullsize">
+                                            {% if news.images.first %}
+                                                <img src="{{ news.images.first.image.url }}" alt="">
+                                            {% else %}
+                                                <img src="{% static 'img/player.png' %}" alt="">
+                                            {% endif %}
+                                        </div>
+                                        <div class="b-box__wrapper">
+                                            <h1 class="b-box__header b-box__header-big">{{ news.title }}</h1>
+                                            <div class="b-box__text">
+                                                {{ news.text | striptags | truncatechars_html:200 }}
+                                            </div>
+                                        </div>
+                                        <div class="b-box__footer">
+                                            <div class="b-box__wrapper">
+                                                <span class="b-box__footer-left">{{ news.date_created|date:"d F Y"|lower }} г.</span>
+                                                {% get_comment_count for news as comment_count %}
+                                                <span class="b-box__footer-right"><i class="fa fa-comments"
+                                                                                     aria-hidden="true"></i> {{ comment_count }}</span>
+                                                <span class="b-box__footer-right"><i class="fa fa-eye"
+                                                                                     aria-hidden="true"></i> {{ news.views }}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+
+
+                        <div class="grid__row grid__row-top">
+                            {% for news in medium_news %}
+                                <a class="b-link_pseudo" href="{% url "news_detail" news.slug %}"
+                                   title="{{ news.title }}">
+                                    <div class="grid__column-7">
+                                        <div class="b-box b-box_388">
+                                            <div class="b-box__image-fullsize">
+                                                {% if news.images.first %}
+                                                    <img src="{{ news.images.first.image.url }}" alt="">
+                                                {% else %}
+                                                    <img src="{% static 'img/player.png' %}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <div class="b-box__wrapper">
+                                                <h1 class="b-box__header">{{ news.title | truncatechars:80}}</h1>
+                                                <div class="b-box__text">
+                                                    {{ news.text | truncatechars_html:120 | striptags }}
+                                                </div>
+                                            </div>
+                                            <div class="b-box__footer">
+                                                <div class="b-box__wrapper">
+                                                    <span class="b-box__footer-left">{{ news.date_created|date:"d F Y"|lower }} г.</span>
+                                                    {% get_comment_count for news as comment_count %}
+                                                    <span class="b-box__footer-right"><i class="fa fa-comments"
+                                                                                         aria-hidden="true"></i> {{ comment_count }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="grid__column-4">
+                        <div class="b-box b-box_nohover">
+                            <div class="b-list">
+                                <div class="b-list__item b-list__item_head">Одной строкой</div>
+                                {% for news in one_line_news %}
+                                    <div class="b-list__item b-list__item_height_107">
+                                        <div class="b-list__item__extra">
+                                            {{ news.date_created|date:"d F Y"|lower }} г.
+                                        </div>
+                                        {% comment %} НЕ БОЛЬШЕ ДВУХ СТРОК (используй truncatechars) {% endcomment %}
+                                        <a href="{% url "news_detail" news.slug %}" class="b-list__item__link"
+                                           title="{{ news.title }}">
+                                            {{ news.title | truncatechars:65 }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                                <div class="b-list__item b-list__item_footer">
+                                    <a class="b-btn b-btn__fullwidth" href="/news/archive/">
+                                        <span class="b-btn__text">Архив новостей</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid__row grid__row-top">
+                            <div class="grid__column-14">
+                                <div class="b-box b-box_nohover b-box-grey">
+                                    <div class="b-block__item__wrapper">
+                                        <h3 class="b-block__item__title b-block__item__title_small b-block__item__title_left">
+                                            Получите новости на вашу почту
+                                        </h3>
+                                        <div class="b-section__space"></div>
+                                        <form class="b-form" method="post" action="{{ request.path }}">
+                                            {% csrf_token %}
+                                            <div class="b-form-group">
+                                                <input id="id_email" maxlength="50" name="email" type="email"
+                                                       class="b-form-control" placeholder="Ваш E-mail" required="">
+                                            </div>
+                                            <button type="submit" class="b-btn b-btn__fullwidth">
+                                                <span class="b-btn__text">Подписаться</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid__column-3">
+                        <div class="b-box b-box_nohover">
+                            <div class="b-list b-list_noborder">
+                                <div class="b-list__item b-list__item_head">Еще у нас есть статьи</div>
+                                {% comment %}
+                                начало итерации, по разным цветам можно итерироватьс помощью cycle
+                                {% endcomment %}
+                                {% for article in image_articles %}
+                                    <a class="b-link_pseudo" href="{% url "articles_detail" article.slug %}"
+                                       title="{{ article.title }}">
+                                        <div class="b-list__item b-list__item_nopadding">
+                                            <div class="b-box b-box_nohover {% cycle 'b-box-red' 'b-box-green' %} b-box_250">
+                                                <div class="b-box__image-fullsize">
+                                                    {% if article.images.first %}
+                                                        <img src="{{ article.images.first.image.url }}" alt="">
+                                                    {% else %}
+                                                        <img src="{% static 'img/player.png' %}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="b-box__wrapper">
+                                                    <h1 class="b-box__header">{{ article.title | truncatechars:25 }}</h1>
+                                                    <div class="b-box__text">
+                                                        {{ article.text | striptags | truncatechars:50 }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                                {% comment %}
+                                Обрати внимание, что тут другая высота, для последнего нужен
+                                класс b-box_205 и без картинки (просто не отображать)
+                                {% endcomment %}
+                                <a class="b-link_pseudo" href="{% url "articles_detail" not_image_articles.slug %}"
+                                   title="{{ not_image_articles.title }}">
+                                    <div class="b-list__item b-list__item_nopadding">
+                                        <div class="b-box b-box_nohover b-box-black b-box_205">
+                                            <div class="b-box__wrapper">
+                                                <h1 class="b-box__header">{{ not_image_articles.title | truncatechars:35 }}</h1>
+                                                <div class="b-box__text">
+                                                    {{ not_image_articles.text | striptags | truncatechars:70 }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="b-list__item b-list__item_footer">
+                                    <a class="b-btn b-btn__fullwidth" href="{% url "articles" %}">
+                                        <span class="b-btn__text">Перейти в статьи</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}
+
+{% block extra-js %}
+    <script>
+        $(document).ready(function () {
+            var $slider = $('#news-slider');
+            $slider.slick({
+                arrows: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                draggable: false,
+                swipe: false,
+                swipeToSlide: false,
+                autoplay: true,
+                dots: true,
+                dotsClass: 'news-slider-dots'
+            });
+        });
+    </script>
+{% endblock %}

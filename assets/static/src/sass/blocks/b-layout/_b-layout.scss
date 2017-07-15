@@ -1,0 +1,21 @@
+.b-layout {
+	margin: 0 auto;
+	position: relative;
+	width: 1280px;
+	padding: 0 10px;
+	box-sizing: border-box;
+
+	&:after {
+		clear: both;
+		display: table;
+		content: " ";
+	}
+
+	.b-box__image-left {
+		float: left;
+
+		img {
+			width: 100px;
+		}
+	}
+}

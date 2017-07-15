@@ -1,0 +1,64 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> / <a class="b-breadcrumbs__link"
+                                                                         href="{% url "dostavka" %}">Доставка</a> /
+                {{ title }}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h3 class="b-section-title">География продаж</h3>
+                </div>
+                <div class="grid__column-7">
+                    <ul class="b-tab">
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "dostavka" %}">Доставка</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "mezhdunarodnaja_dostavka" %}">Международная
+                                доставка</a>
+                        </li>
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="#">География продаж</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-12">
+                    <p class="b-section-text">
+                        Наша поставляемая продукция: различные <a
+                            href="http://zavodtriumph.ru/catalog/vodovodjanye-podogrevateli/teploobmennik-vodovodjanoy/">теплообменники
+                        ВВП</a>, <a href="http://zavodtriumph.ru/catalog/parovodjanye-podogrevateli/">ПП1, ПП2</a>, <a
+                            href="http://zavodtriumph.ru/catalog/emkostnoe-oborudovanie/podogrevateli-parovye-emkostnye-tipa-vpe-std/">ВПЕ</a>,
+                        <a href="http://zavodtriumph.ru/catalog/grjazevik/">грязевики</a>, <a
+                            href="http://zavodtriumph.ru/catalog/vozdukhosborniki-a1i/">воздухосборники</a>, <a
+                            href="http://zavodtriumph.ru/catalog/registry-otopitelnye/">регистры отопления</a>, <a
+                            href="http://zavodtriumph.ru/catalog/konvektory-otoplenija/">конвекторы отопительные</a>
+                        — уже сейчас находится в эксплуатации на предприятиях всех крупных городов
+                        России.
+                    </p>
+                    <p class="b-section-text">
+                        Мы имеем возможность поставить наше оборудование в любые города, поселки, села нашей большой
+                        страны.
+                    </p>
+                    <p class="b-section-text">
+                        Поскольку мы с одинаковой тщательностью и ответственностью относимся к выполнению
+                        работ по каждому договору, вне зависимости от его объема, продукцию нашего
+                        завода можно встретить и в небольших городах Российской Федерации. Кроме того мы имеем
+                        большой опыт поставок подогревателей, различного теплообменного оборудования и оснащения
+                        для систем отопления в республику Казахстан, Узбекистан, Кыргызстан, Белоруссию.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

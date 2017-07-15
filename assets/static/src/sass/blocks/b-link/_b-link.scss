@@ -1,0 +1,15 @@
+// Ссылки
+.b-link {
+	color: #00955F;
+	text-decoration: none;
+
+	// Псевдо ссылка
+	&_pseudo {
+		color: inherit;
+		text-decoration: none;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

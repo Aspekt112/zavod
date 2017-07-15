@@ -1,0 +1,175 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+{% load extras %}
+{% load threadedcomments_tags %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="{% url "main" %}">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "news" %}">Новости</a>
+                {% if current_page_number > 1 %}
+                     / {{ current_page_number }} страница
+                {% endif %}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-3">
+                    <h3 class="b-section-title">Архив новостей</h3>
+                </div>
+            </div>
+            <div class="grid__row">
+                <a href="{% url 'news' %}" class="b-section-back">Назад к панораме новостей</a>
+            </div>
+            {% for ind, one_news in ind_news %}
+                {% if ind|mod:2 == 0 %}
+                    <div class="grid__row grid__row-btm">
+                    <div class="grid__column-custom-612">
+                {% else %}
+                    <div class="grid__column-custom-612 grid__offset-small">
+                {% endif %}
+            <a class="b-link_pseudo" href="{% url "news_detail" one_news.slug %}">
+                <div class="b-box b-box b-box_468">
+                    <div class="b-box__image-fullsize">
+                        {% if one_news.images.first %}
+                            <img src="{{ one_news.images.first.image.url }}" alt="Пример баннера">
+                        {% else %}
+                            <img src="{% static 'img/life/banner_1.png' %}" alt="Пример баннера">
+                        {% endif %}
+                    </div>
+                    <div class="b-box__wrapper">
+                        <h4 class="b-box__header b-box__header-big">{{ one_news.title }}</h4>
+                        <p class="b-box__text">
+                            {{ one_news.text | truncatewords:20 | striptags | safe }}
+                        </p>
+                    </div>
+                    <div class="b-box__footer">
+                        <div class="b-box__wrapper">
+                            <span class="b-box__footer-left">{{ one_news.date_created|date:"d F Y"|lower }} г.</span>
+                            {% get_comment_count for one_news as comment_count %}
+                            <span class="b-box__footer-right"><i class="fa fa-comments"
+                                                                 aria-hidden="true"></i> {{ comment_count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </div>
+            {% if ind|mod:2 == 1 %}
+                </div>
+            {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="b-layout">
+        <div class="b-paginator">
+            {% if all_page_number|length <= 8 %}
+                {% for page_number in all_page_number %}
+                    <div class="b-paginator__item">
+                        <a class="b-paginator__item__link {% if page_number == current_page_number %}b-paginator__item__link_current{% endif %}"
+                           href="
+                                {% if tag_in_url %}
+                                    {% url url_for_pages tag_in_url page_number %}
+                                {% else %}
+                                    {% url url_for_pages page_number %}
+                                {% endif %}
+                           ">{{ page_number }}</a>
+                    </div>
+                {% endfor %}
+            {% elif current_page_number <= 5 %}
+                {% for page_number in all_page_number|slice:":6" %}
+                    <div class="b-paginator__item">
+                        <a class="b-paginator__item__link {% if page_number == current_page_number %}b-paginator__item__link_current{% endif %}"
+                           href="
+                                {% if tag_in_url %}
+                                    {% url url_for_pages tag_in_url page_number %}
+                                {% else %}
+                                    {% url url_for_pages page_number %}
+                                {% endif %}
+                           ">{{ page_number }}</a>
+                    </div>
+                {% endfor %}
+                <div class="b-paginator__item">...</div>
+                <div class="b-paginator__item">
+                    <a class="b-paginator__item__link {% if all_page_number|length == current_page_number %}b-paginator__item__link_current{% endif %}"
+                       href="
+                            {% if tag_in_url %}
+                                {% url url_for_pages tag_in_url page_number %}
+                            {% else %}
+                                {% url url_for_pages all_page_number|length %}
+                            {% endif %}
+                       ">{{ all_page_number|length }}</a>
+                </div>
+            {% else %}
+                {% for page_number in all_page_number|slice:":2" %}
+                    <div class="b-paginator__item">
+                        <a class="b-paginator__item__link {% if page_number == current_page_number %}b-paginator__item__link_current{% endif %}"
+                           href="
+                                {% if tag_in_url %}
+                                    {% url url_for_pages tag_in_url page_number %}
+                                {% else %}
+                                    {% url url_for_pages page_number %}
+                                {% endif %}
+                           ">{{ page_number }}</a>
+                    </div>
+                {% endfor %}
+                <div class="b-paginator__item">...</div>
+                {% if current_page_number != all_page_number|length and current_page_number|add:1 != all_page_number|length %}
+                    {% for page_number in all_page_number|pages_set:current_page_number %}
+                        <div class="b-paginator__item">
+                            <a class="b-paginator__item__link {% if page_number == current_page_number %}b-paginator__item__link_current{% endif %}"
+                               href="
+                                {% if tag_in_url %}
+                                    {% url url_for_pages tag_in_url page_number %}
+                                {% else %}
+                                    {% url url_for_pages page_number %}
+                                {% endif %}
+                           ">{{ page_number }}</a>
+                        </div>
+                    {% endfor %}
+                    <div class="b-paginator__item">...</div>
+                    <div class="b-paginator__item">
+                        <a class="b-paginator__item__link {% if all_page_number|length == current_page_number %}b-paginator__item__link_current{% endif %}"
+                           href="
+                                {% if tag_in_url %}
+                                    {% url url_for_pages tag_in_url page_number %}
+                                {% else %}
+                                    {% url url_for_pages all_page_number|length %}
+                                {% endif %}
+                           ">{{ all_page_number|length }}</a>
+                    </div>
+                {% elif current_page_number|add:1 != all_page_number|length %}
+                    {% for page_number in all_page_number|slice:"-5:" %}
+                        <div class="b-paginator__item">
+                            <a class="b-paginator__item__link {% if page_number == current_page_number %}b-paginator__item__link_current{% endif %}"
+                               href="
+                                {% if tag_in_url %}
+                                    {% url url_for_pages tag_in_url page_number %}
+                                {% else %}
+                                    {% url url_for_pages page_number %}
+                                {% endif %}
+                           ">{{ page_number }}</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for page_number in all_page_number|slice:"-5:" %}
+                        <div class="b-paginator__item">
+                            <a class="b-paginator__item__link {% if page_number == current_page_number %}b-paginator__item__link_current{% endif %}"
+                               href="
+                                {% if tag_in_url %}
+                                    {% url url_for_pages tag_in_url page_number %}
+                                {% else %}
+                                    {% url url_for_pages page_number %}
+                                {% endif %}
+                           ">{{ page_number }}</a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

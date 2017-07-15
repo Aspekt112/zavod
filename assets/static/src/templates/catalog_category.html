@@ -1,0 +1,141 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+{% load extras %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "catalog" %}">Каталог</a>
+                {% if category.parent_id %}
+                    / <a class="b-breadcrumbs__link"
+                        href="{% url "catalog_category" category.parent_id|get_full_category_path %}">{{ category.parent_id.name }}</a>
+                {% endif %}
+            / {{ title }}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <h3 class="b-section-title">{{ category.name }}</h3>
+                </div>
+                {% if subcategories %}
+                    <div class="grid__column-5">
+                        <ul class="b-tab">
+                            <li class="b-tab__item">
+                                <a class="b-tab__item__link" href="{{ request.path }}">Расширено</a>
+                            </li>
+                            <li class="b-tab__item b-tab__item_active">
+                                <a class="b-tab__item__link" href="{{ request.path }}?expand=false">Списком</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="grid__row">
+                {% if category.parent_id %}
+                    <a href="{% url "catalog_category" category.parent_id|get_full_category_path %}" class="b-section-back">Назад к
+                        каталогу</a>
+                {% else %}
+                    <a href="../" class="b-section-back">Назад к каталогу</a>
+                {% endif %}
+            </div>
+            <div class="grid__row grid__row-btm">
+                <div class="grid__column-10">
+                    <div class="b-category-list-group b-category-list-group_inline">
+                        <ul class="b-category-list-group__list b-category-list-group__list_bold">
+                            {% for subcategory in subcategories %}
+                                <li class="b-category-list-group__list__item">
+                                    <a href="{% url "catalog_category" subcategory|get_full_category_path %}"
+                                       class="b-category-list-group__list__item-link">{{ subcategory.name }}
+                                        {% if subcategory.number > 0 %}
+                                            <span class="b-category-list-group__list__item-info">{{ subcategory.number }} позиции</span>
+                                        {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <div class="b-content">
+                        {{ category.text | safe }}
+                    </div>
+                </div>
+                <div class="grid__column-4 grid__offset ">
+                    <ul class="b-section-list">
+                        {% for category_file in category.files.all %}
+                            <a class="b-link b-link_pseudo" href="{{ category_file.file_content.url }}">
+                                <li class="b-section-list"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{ category_file.title }}</li>
+                            </a>
+                        {% endfor %}
+                        {% if category.price_list %}
+                            <a class="b-link b-link_pseudo" href="{{ category.price_list.url }}">
+                                <li class="b-section-list"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Прайс-лист</li>
+                            </a>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-12">
+                    {% for category_image in category.images.all %}
+                        <div class="b-box__image-fullsize">
+                            <img src="{{ category_image.image.url }}" alt="Пример Продукта">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if category.popularproduct.all %}
+        <div class="b-section">
+            <div class="b-layout">
+                <div class="grid__row">
+                    <h3 class="subheading">Популярные товары</h3>
+                    {% for popularproduct in category.popularproduct.all %}
+                        {% if forloop.counter > 1 %}
+                            <div class="grid__column-4 grid__offset">
+                        {% else %}
+                            <div class="grid__column-4">
+                        {% endif %}
+                            <a class="b-image"
+                               href="{% url 'catalog_category' popularproduct.product|get_full_product_path %}">
+                                <div class="b-box">
+                                    <div class="b-box__wrapper">
+                                        <div class="b-box__image-left">
+                                            {% if popularproduct.product.images.first %}
+                                                <img src="{{ popularproduct.product.images.first.image.url }}"
+                                                     alt="Пример Продукта">
+                                            {% else %}
+                                                <img src="{% static 'img/products/product_sale.png' %}" alt="Пример Продукта">
+                                            {% endif %}
+                                        </div>
+                                        <p class="b-box__author">
+                                            {{ popularproduct.product.category.name }}
+                                        </p>
+                                        <p class="b-box__text">
+                                            {{ popularproduct.product.name }}
+                                        </p>
+                                    {% if popularproduct.type == 0 %}
+                                        <div class="b-box__sale">Хит</div>
+                                    {% elif popularproduct.type == 1 %}
+                                        <div class="b-box__sale">Скидка!</div>
+                                    {% elif popularproduct.type == 2 %}
+                                        <div class="b-box__sale">Новинка</div>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

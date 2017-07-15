@@ -1,0 +1,488 @@
+[
+  {
+    "fields": {
+      "units": "руб.",
+      "title": "Цена с НДС, латунь",
+      "slug": "price_lat"
+    },
+    "model": "zavod.property",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "units": "т/час",
+      "title": "Расход нагреваемой воды",
+      "slug": "water"
+    },
+    "model": "zavod.property",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "units": "руб.",
+      "title": "Цена с НДС, нержав.",
+      "slug": "price_ner"
+    },
+    "model": "zavod.property",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "units": "Гкал/час",
+      "title": "Теплопроизводительность",
+      "slug": "teplo"
+    },
+    "model": "zavod.property",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "units": "кВт",
+      "title": "Тепловой поток",
+      "slug": "potok"
+    },
+    "model": "zavod.property",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "units": "кг",
+      "title": "Масса",
+      "slug": "weight"
+    },
+    "model": "zavod.property",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "units": "м2",
+      "title": "Поверхность нагрева",
+      "slug": "nagrev"
+    },
+    "model": "zavod.property",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "units": "Ду 16",
+      "title": "Число трубок, шт.",
+      "slug": "trub"
+    },
+    "model": "zavod.property",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Число трубок",
+      "slug": "trub"
+    },
+    "model": "zavod.property",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "units": "руб.",
+      "title": "Цена с НДС",
+      "slug": "price"
+    },
+    "model": "zavod.property",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Диаметр",
+      "slug": "diametr"
+    },
+    "model": "zavod.property",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Дн",
+      "slug": "dn"
+    },
+    "model": "zavod.property",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Тип днища",
+      "slug": "dno_type"
+    },
+    "model": "zavod.property",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "units": "Ру",
+      "title": "Давление",
+      "slug": "pressure"
+    },
+    "model": "zavod.property",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Н или L",
+      "slug": "h_or_l"
+    },
+    "model": "zavod.property",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "units": "Ду",
+      "title": "Условный проход, мм",
+      "slug": "prohod"
+    },
+    "model": "zavod.property",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "units": "кг/ч",
+      "title": "Предельный расход теплоносителя в трубопроводе",
+      "slug": "predel"
+    },
+    "model": "zavod.property",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Длина L",
+      "slug": "lenght_l"
+    },
+    "model": "zavod.property",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "units": "Дн",
+      "title": "Диаметр корпуса, мм",
+      "slug": "corpus"
+    },
+    "model": "zavod.property",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "units": "т/ч",
+      "title": "Производительность",
+      "slug": "proisvod"
+    },
+    "model": "zavod.property",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "units": "Ру",
+      "title": "Условное давление, Мпа",
+      "slug": "usl_pressure"
+    },
+    "model": "zavod.property",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "units": "руб. Cерия 5.903-13",
+      "title": "Цена с НДС",
+      "slug": "price"
+    },
+    "model": "zavod.property",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "units": "руб. Cерия Триумф",
+      "title": "Цена с НДС",
+      "slug": "price"
+    },
+    "model": "zavod.property",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Высота h",
+      "slug": "height_h"
+    },
+    "model": "zavod.property",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Высота Н1",
+      "slug": "height_h1"
+    },
+    "model": "zavod.property",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "units": "м2",
+      "title": "Площадь поверхности нагрева",
+      "slug": "ploshad_nagreva"
+    },
+    "model": "zavod.property",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Высота H",
+      "slug": "height_h"
+    },
+    "model": "zavod.property",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "units": "м³",
+      "title": "Рабочий объем",
+      "slug": "work"
+    },
+    "model": "zavod.property",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "units": "шт.",
+      "title": "Число трубок змеевика",
+      "slug": "trub_number_zmei"
+    },
+    "model": "zavod.property",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Диаметр трубок",
+      "slug": "trub_diam"
+    },
+    "model": "zavod.property",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "units": "Ду 19",
+      "title": "Число трубок, шт.",
+      "slug": "trub_namber"
+    },
+    "model": "zavod.property",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "units": "руб.",
+      "title": "Цена ящика с НДС",
+      "slug": "price_box"
+    },
+    "model": "zavod.property",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Длина трубок",
+      "slug": "lenght_trub"
+    },
+    "model": "zavod.property",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Максимальная рабочая температура",
+      "slug": "max_work_temperature"
+    },
+    "model": "zavod.property",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Диаметр патрубков",
+      "slug": "diam_patrub"
+    },
+    "model": "zavod.property",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Материал пластин",
+      "slug": "material_plast"
+    },
+    "model": "zavod.property",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Материал уплотнений",
+      "slug": "material_uplot"
+    },
+    "model": "zavod.property",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Максимальная площадь теплообмена",
+      "slug": "max_teplo_sq"
+    },
+    "model": "zavod.property",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Максимальное рабочее давление",
+      "slug": "max_work_pressure"
+    },
+    "model": "zavod.property",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Площадь пластин",
+      "slug": "plust_sq"
+    },
+    "model": "zavod.property",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "B",
+      "slug": "b"
+    },
+    "model": "zavod.property",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "E",
+      "slug": "e"
+    },
+    "model": "zavod.property",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "D",
+      "slug": "d"
+    },
+    "model": "zavod.property",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "F",
+      "slug": "f"
+    },
+    "model": "zavod.property",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Диаметр присоединения Ду",
+      "slug": "diam_prisoed_du"
+    },
+    "model": "zavod.property",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Максимальный поток",
+      "slug": "max_potok"
+    },
+    "model": "zavod.property",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Диапазон температур",
+      "slug": "temperature_diap"
+    },
+    "model": "zavod.property",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "units": "",
+      "title": "Присоединение",
+      "slug": "prisoed"
+    },
+    "model": "zavod.property",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "I",
+      "slug": "i"
+    },
+    "model": "zavod.property",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "L",
+      "slug": "l"
+    },
+    "model": "zavod.property",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "A",
+      "slug": "a"
+    },
+    "model": "zavod.property",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "D1",
+      "slug": "d1"
+    },
+    "model": "zavod.property",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "units": "т/ч",
+      "title": "Примерный расход воды из сети",
+      "slug": "water_rashod"
+    },
+    "model": "zavod.property",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "units": "мм",
+      "title": "Ду горловины",
+      "slug": "du_gorl"
+    },
+    "model": "zavod.property",
+    "pk": 54
+  }
+]

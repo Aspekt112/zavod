@@ -1,0 +1,155 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "about" %}">О компании</a> /
+                {{ title }}
+            </div>
+
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h3 class="b-section-title">Награды компании</h3>
+                </div>
+                <div class="grid__column-7">
+                    <ul class="b-tab">
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "about" %}">О заводе</a>
+                        </li>
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="#">Награды</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "partnery" %}">Партнеры</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "otzyvy" %}">Отзывы</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "employee" %}">Сотрудники</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "vacancy" %}">Вакансии</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <p class="b-section-text">
+                        Завод Триумф в очередной раз удостоен чести получить
+                        высокое звание «Лучший товар года 2012». Продукция предприятия внесена в официальный реестр.
+                    </p>
+                </div>
+            </div>
+            <div class="grid__row grid__row-btm">
+                <div class="grid__column-2">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small ">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-2">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small ">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+                <div class="grid__column-2 grid__offset-small">
+                    <div class="b-image">
+                        <div class="b-image__container">
+                            <img src="{% static 'img/awards/example.png' %}" alt="Пример награды">
+                        </div>
+                        <div class="b-image__caption">Диплом за лучшую продукцию на всем белом свете</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

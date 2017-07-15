@@ -1,0 +1,49 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="{% url "main" %}">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "dokumentatsija" %}">Документы</a> /
+                {{ title }}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h1 class="b-section-title">Товарные знаки</h1>
+                </div>
+                <div class="grid__column-6 grid__offset">
+                    <ul class="b-tab">
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "razreshenie_na_primenenie" %}">Разрешение на
+                                применение</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "sertifikaty" %}">Сертификаты</a>
+                        </li>
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="#">Товарные знаки</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "tekhnicheskaja_dokumentatsija" %}">Техническая
+                                документация</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <p class="b-section-text"></p>
+                </div>
+                <div class="grid__column-4 grid__offset">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

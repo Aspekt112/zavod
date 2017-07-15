@@ -1,0 +1,359 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+{% load extras %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "catalog" %}">Каталог</a>
+                {% if category.parent_id %}
+                    / <a class="b-breadcrumbs__link"
+                         href="{% url "catalog_category" category.parent_id|get_full_category_path %}">{{ category.parent_id.name }}</a>
+                {% endif %}
+            / {{ title }}
+            </div>
+
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h3 class="b-section-title">{{ category.name }}</h3>
+                </div>
+                {% if category.number != 0 %}
+                    <div class="grid__column-7">
+                        <ul class="b-tab">
+                            <li class="b-tab__item b-tab__item_active">
+                                <a class="b-tab__item__link" href="{{ request.path }}">Расширено</a>
+                            </li>
+                            <li class="b-tab__item">
+                                <a class="b-tab__item__link" href="{{ request.path }}?expand=false">Списком</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="grid__row">
+                {% if category.parent_id %}
+                    <a href="{% url "catalog_category" category.parent_id|get_full_category_path %}" class="b-section-back">Назад к
+                        каталогу</a>
+                {% else %}
+                    <a href="../" class="b-section-back">Назад к каталогу</a>
+                {% endif %}
+            </div>
+            {% if products %}
+                <div class="b-section b-section_short b-section_borderless">
+                    <div class="grid__row">
+                        <div class="grid__column-9">
+                            {% for product in products %}
+                                <div class="grid__row grid__row-btm">
+                                    <div class="grid__column-9">
+                                        <div class="b-box b-box_258">
+                                            <a class="b-link_pseudo"
+                                               href="{% url "catalog_category" product|get_full_product_path %}">
+                                                <div class="b-box__body">
+                                                    <div class="b-box__wrapper">
+                                                        <h2 class="b-box__header">{{ product.name }}</h2>
+                                                        <div class="b-box__image-fullsize">
+                                                            {% if product.images.first %}
+                                                                <img src="{{ product.images.first.image.url }}" alt="">
+                                                            {% else %}
+                                                                <img src="{% static 'img/products/product_sale.png' %}"
+                                                                     alt="Пример Продукта">
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="b-box__property">
+                                                            <ul class="b-property b-property_noborder">
+                                                                {% for key, value in product.properties_dict.items %}
+                                                                    {% if "Цена" not in key %}
+                                                                        <li class="b-property__item">
+                                                                            <span class="b-property__key">{{ key }}</span>
+                                                                            <span class="b-property__value b-property__value_darker">{{ value }}</span>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="b-box__footer">
+                                                <div class="b-box__wrapper">
+                                                    <h3 class="b-box__header">Цена с НДС:</h3>
+                                                    <div class="b-box__property">
+                                                        <ul class="b-property b-property_noborder">
+                                                            {% for key, value in product.properties_dict.items %}
+                                                                {% if "Цена" in key %}
+                                                                    <li class="b-property__item">
+                                                                        <span class="b-property__key">{{ key|slice:'12:-6:' }}</span>
+                                                                        <span class="b-property__value b-property__value_extra">{{ value }} руб.</span>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    {#                                                    <form>#}
+                                                    {#                                                        {% csrf_token %}#}
+                                                    <div class="b-form-group">
+                                                        <input type="number" class="b-form-control"
+                                                               placeholder="1 шт."
+                                                               id="id_count" maxlength="200" name="count">
+                                                    </div>
+                                                    <button type="submit" class="b-btn b-btn__fullwidth"
+                                                            data-toggle="modal" data-target="#order" href="#"
+                                                            data-product-id="{{ product.name }}">
+                                                        <span class="b-btn__text">Заказать</span>
+                                                    </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            {#                                        <div class="b-box__wrapper">#}
+                                            {#                                            <div class="b-box__image">#}
+                                            {#                                                {% if product.images.first %}#}
+                                            {#                                                    <img src="{{ product.images.first.image.url }}"#}
+                                            {#                                                         alt="Пример Продукта">#}
+                                            {#                                                {% else %}#}
+                                            {#                                                    <img src="{% static 'img/products/product_sale.png' %}"#}
+                                            {#                                                         alt="Пример Продукта">#}
+                                            {#                                                {% endif %}#}
+                                            {#                                            </div>#}
+                                            {#                                            <h4 class="b-box__header">{{ product.name }}</h4>#}
+                                            {#                                            <p class="b-box__text">{{ product.product_text|truncatewords:20 }}</p>#}
+                                            {#                                        </div>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="grid__offset grid__column-4">
+                            <div class="b-box b-box-grey b-box_nohover">
+                                <div class="b-box__wrapper">
+                                    <form method="get" action="./">
+
+                                        {% comment %}
+                                        тут начинается формирование слайдеров
+                                        {% endcomment %}
+                                        {% for property in properties_objs %}
+                                            {% if property.filterable %}
+                                                {{ property.title }}, {{ property.units }}
+                                                <div class="b-section__space"></div>
+                                                <div class="grid-fluid">
+                                                    <div class="grid__row">
+                                                        <div class="grid__column-7">
+
+                                                            <div class="b-form-group">
+                                                                <input class="b-form-control" placeholder="От"
+                                                                       type="number"
+                                                                       id="id_{{ forloop.counter }}_1" maxlength="50"
+                                                                       name="{{ property.slug }}_from" value="{{ property.get_min | stringformat:'d' }}">
+                                                                {% comment %}value=минимальное значение{% endcomment %}
+                                                            </div>
+                                                        </div>
+                                                        <div class="grid__column-7">
+                                                            <div class="b-form-group">
+                                                                <input class="b-form-control" placeholder="До"
+                                                                       type="number"
+                                                                       required="" id="id_{{ forloop.counter }}_2" maxlength="50"
+                                                                       name="{{ property.slug }}_to" value="{{ property.get_max | stringformat:'d' }}">
+                                                                {% comment %}value=максимальное значение{% endcomment %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="b-form-group">
+                                                    <div id="js-slider-{{ forloop.counter }}"></div>
+                                                </div>
+                                                {#                                                <div id="js-slider_1"></div>#}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% comment %} конец примера (но смотри в extra-js){% endcomment %}
+
+                                        <div class="b-section__space"></div>
+                                        <button type="submit" class="b-btn b-btn__fullwidth">
+                                            <span class="b-btn__text">Отфильтровать</span>
+                                        </button>
+                                        <button type="reset" class="b-btn b-btn-revert b-btn__fullwidth">
+                                            <span class="b-btn__text">Сбросить</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <div class="b-content">
+                        {{ category.text | safe }}
+                    </div>
+                </div>
+                <div class="grid__column-4 grid__offset">
+                    <h4 class="b-section-subtitle"></h4>
+                    <ul class="b-section-list">
+                        {% for category_file in category.files.all %}
+                            <a class="b-link b-link_pseudo" href="{{ category_file.file_content.url }}">
+                                <li class="b-section-list"><i class="fa fa-file-pdf-o"
+                                                              aria-hidden="true"></i> {{ category_file.title }}</li>
+                            </a>
+                        {% endfor %}
+                        {% if category.price_list %}
+                            <a class="b-link b-link_pseudo" href="{{ category.price_list.url }}">
+                                <li class="b-section-list"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    Прайс-лист
+                                </li>
+                            </a>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if category.popularproduct.all %}
+        <div class="b-section">
+        <div class="b-layout">
+            <div class="grid__row">
+                <h3 class="subheading">Популярные товары</h3>
+                {% for popularproduct in category.popularproduct.all %}
+                    {% if forloop.counter > 1 %}
+                        <div class="grid__column-4 grid__offset">
+                    {% else %}
+                        <div class="grid__column-4">
+                    {% endif %}
+                <a class="b-link_pseudo"
+                   href="{% url 'catalog_category' popularproduct.product|get_full_product_path %}">
+                    <div class="b-box">
+                        <div class="b-box__wrapper">
+                            <div class="b-box__image-left">
+                                {% if popularproduct.product.images.first %}
+                                    <img src="{{ popularproduct.product.images.first.image.url }}"
+                                         alt="Пример Продукта">
+                                {% else %}
+                                    <img src="{% static 'img/products/product_sale.png' %}" alt="Пример Продукта">
+                                {% endif %}
+                            </div>
+                            <p class="b-box__author">
+                                {{ popularproduct.product.category.name }}
+                            </p>
+                            <p class="b-box__text">
+                                {{ popularproduct.product.name }}
+                            </p>
+                            {% if popularproduct.type == 0 %}
+                                <div class="b-box__sale">Хит</div>
+                            {% elif popularproduct.type == 1 %}
+                                <div class="b-box__sale">Скидка!</div>
+                            {% elif popularproduct.type == 2 %}
+                                <div class="b-box__sale">Новинка</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}
+
+{% block extra-html %}
+    <div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="#" class="modal__close close" data-dismiss="modal" aria-label="Close"></a>
+
+                <div class="modal-body">
+                    <div class="b-block__item__wrapper">
+                        <div class="b-block__item__title b-block__item__title_small b-block__item__title_left">
+                            Заказать продукцию
+                        </div>
+                        <div class="b-section__space"></div>
+                        <form class="b-form" method="post" action="{{ request.path }}"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="b-form-group">
+                                <input type="text" class="b-form-control" placeholder="Ваше имя"
+                                       id="id_name" maxlength="200" name="name" required="">
+                            </div>
+
+                            <div class="b-form-group">
+                                <input class="b-form-control" placeholder="Контактный телефон"
+                                       id="id_phone" maxlength="50" name="phone">
+                            </div>
+                            <div class="b-form-group">
+                                <input class="b-form-control" placeholder="Email"
+                                       id="id_email" name="email" type="email" required="">
+                            </div>
+                            <div class="b-form-group">
+                                <input type="file" id="id_file_field" name="file_field" multiple="">
+                                {% comment %}<i class="fa fa-paperclip pull-right" aria-hidden="true"></i>{% endcomment %}
+                            </div>
+                            <div class="b-form-group">
+                                <textarea id="id_comment" maxlength="500" name="comment" required=""
+                                          class="b-form-control" rows="4" placeholder="Комментарий"></textarea>
+                            </div>
+                            <input id="id_product" maxlength="500" name="product" type="hidden" value="">
+                            <input id="id_count" maxlength="500" name="count" type="hidden" value="1">
+                            <button type="submit" class="b-btn b-btn__fullwidth">
+                                <span class="b-btn__text">Отправить</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra-js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            {% comment %}начало автогенерируемого кода{% endcomment %}
+            {% for property in properties_objs %}
+                {% if property.filterable %}
+                    var slider{{ forloop.counter }} = document.getElementById('js-slider-{{ forloop.counter }}');
+                    noUiSlider.create(slider{{ forloop.counter }}, {
+                        start: [{{ property.get_min }}, {{ property.get_max }}],
+                        connect: true,
+                        range: {
+                            'min': Math.round({{ property.min }}), // любое минимальное значение
+                            'max': Math.round({{ property.max }})   // любое максимальное значение
+                        }
+                    });
+
+                    var min_input_{{ forloop.counter }} = document.getElementById('id_{{ forloop.counter }}_1');
+                    var max_input_{{ forloop.counter }} = document.getElementById('id_{{ forloop.counter }}_2');
+                    slider{{ forloop.counter }}.noUiSlider.on('update', function (values, handle) {
+
+                        var value = values[handle];
+
+                        if (handle) {
+                            max_input_{{ forloop.counter }}.value = Math.round(value);
+                        } else {
+                            min_input_{{ forloop.counter }}.value = Math.round(value);
+                        }
+                    });
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#order').on('show.bs.modal', function (e) {
+
+                //get data-id attribute of the clicked element
+                var productId = $(e.relatedTarget).data('product-id');
+                var inputVal = $($(e.relatedTarget)).parent().find('input[name="count"]').val() | 1;
+
+                //populate the textbox
+                $(e.currentTarget).find('input[name="product"]').val(productId);
+                $(e.currentTarget).find('input[name="count"]').val(inputVal);
+            });
+        });
+    </script>
+{% endblock %}

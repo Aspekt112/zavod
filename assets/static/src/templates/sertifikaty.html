@@ -1,0 +1,55 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+
+{% block content %}
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="{% url "main" %}">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "dokumentatsija" %}">Документы</a> /
+                {{ title }}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-7">
+                    <h1 class="b-section-title">Сертификаты</h1>
+                </div>
+                <div class="grid__column-6 grid__offset">
+                    <ul class="b-tab">
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "razreshenie_na_primenenie" %}">Разрешение на
+                                применение</a>
+                        </li>
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="#">Сертификаты</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "tovarnye_znaki" %}">Товарные знаки</a>
+                        </li>
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{% url "tekhnicheskaja_dokumentatsija" %}">Техническая
+                                документация</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <p class="b-section-text">
+                        Данные сертификаты гарантируют качество производимой продукции. Товары нашего предприятия уже
+                        завоевали доверие и уважение у покупателей. Сертификаты так же действуют на территории
+                        Казахстана, Белоруссии, Грузии.
+                    </p>
+                    <p class="b-section-text">
+                        Добровольная сертификация на некоторые виды продукции выступает определенной гарантией ее
+                        качества и еще раз подтверждает кредо Завода Триумф: «Качество, которому можно доверять».
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}

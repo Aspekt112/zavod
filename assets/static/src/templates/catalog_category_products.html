@@ -1,0 +1,310 @@
+{% extends "blocks/base.html" %}
+
+{# TODO: remove that loading #}
+{% load static from staticfiles %}
+{% load extras %}
+
+{% block content %}
+
+    <div class="b-section b-section_short">
+        <div class="b-layout">
+            <div class="b-breadcrumbs">
+                <a class="b-breadcrumbs__link" href="/">Главная</a> /
+                <a class="b-breadcrumbs__link" href="{% url "catalog" %}">Каталог</a>
+                {% if category.parent_id %}
+                    / <a class="b-breadcrumbs__link"
+                         href="{% url "catalog_category" category.parent_id|get_full_category_path %}">{{ category.parent_id.name }}</a>
+                {% endif %}
+            / {{ title }}
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <h3 class="b-section-title">{{ category.name }}</h3>
+                </div>
+                <div class="grid__column-5">
+                    <ul class="b-tab">
+                        <li class="b-tab__item">
+                            <a class="b-tab__item__link" href="{{ request.path }}">Расширено</a>
+                        </li>
+                        <li class="b-tab__item b-tab__item_active">
+                            <a class="b-tab__item__link" href="{{ request.path }}?expand=false">Списком</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid__row">
+                {% if category.parent_id %}
+                    <a href="{% url "catalog_category" category.parent_id|get_full_category_path %}" class="b-section-back">Назад к
+                        каталогу</a>
+                {% else %}
+                    <a href="../" class="b-section-back">Назад к каталогу</a>
+                {% endif %}
+            </div>
+
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <div class="b-table">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Позиция</th>
+                                {% for property in properties %}
+                                    <th>{{ property }}</th>
+                                {% endfor %}
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url "catalog_category" product|get_full_product_path %}">
+                                            {{ product.name }}
+                                        </a>
+                                    </td>
+                                    {% for key, value in product.properties_dict.items %}
+                                        {% if "Цена" not in key %}
+                                            <td>{{ value }}</td>
+                                        {% else %}
+                                            <td class="bold">{{ value }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>
+                                        <a class="b-btn" data-toggle="modal" data-target="#order" href="#"
+                                           data-product-id="{{ product.name }}">
+                                            <span class="b-btn__text">Заказать</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {#                    <div class="submenu__catalog">#}
+                    {#                        <ul class="submenu__catalog__list">#}
+                    {#                            {% for product in products %}#}
+                    {#                                <li class="submenu__catalog__list__item">#}
+                    {#                                    <a href="{% url "catalog_category_inside" product.category.slug product.slug %}"#}
+                    {#                                       class="submenu__catalog__list__item-link">{{ product.name }}</a>#}
+                    {#                                </li>#}
+                    {#                            {% endfor %}#}
+                    {#                        </ul>#}
+                    {#                    </div>#}
+                </div>
+                <div class="grid__offset grid__column-4">
+                    <div class="b-box b-box-grey b-box_nohover">
+                        <div class="b-box__wrapper">
+                            <form method="get" action="./">
+
+                                {% comment %}
+                                тут начинается формирование слайдеров
+                                {% endcomment %}
+                                {% for property in properties_objs %}
+                                    {% if property.filterable %}
+                                        {{ property.title }}, {{ property.units }}
+                                        <div class="b-section__space"></div>
+                                        <div class="grid-fluid">
+                                            <div class="grid__row">
+                                                <div class="grid__column-7">
+                                                    <input type="hidden" name="expand" value="false">
+                                                    <div class="b-form-group">
+                                                        <input class="b-form-control" placeholder="От"
+                                                               type="number"
+                                                               id="id_{{ forloop.counter }}_1" maxlength="50"
+                                                               name="{{ property.slug }}_from"
+                                                               value="{{ property.get_min | stringformat:'d' }}">
+                                                        {% comment %}value=минимальное значение{% endcomment %}
+                                                    </div>
+                                                </div>
+                                                <div class="grid__column-7">
+                                                    <div class="b-form-group">
+                                                        <input class="b-form-control" placeholder="До"
+                                                               type="number"
+                                                               required="" id="id_{{ forloop.counter }}_2"
+                                                               maxlength="50"
+                                                               name="{{ property.slug }}_to"
+                                                               value="{{ property.get_max | stringformat:'d' }}">
+                                                        {% comment %}value=максимальное значение{% endcomment %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="b-form-group">
+                                            <div id="js-slider-{{ forloop.counter }}"></div>
+                                        </div>
+                                        {#                                                <div id="js-slider_1"></div>#}
+                                    {% endif %}
+                                {% endfor %}
+                                {% comment %} конец примера (но смотри в extra-js){% endcomment %}
+
+                                <div class="b-section__space"></div>
+                                <button type="submit" class="b-btn b-btn__fullwidth">
+                                    <span class="b-btn__text">Отфильтровать</span>
+                                </button>
+                                <button type="reset" class="b-btn b-btn-revert b-btn__fullwidth">
+                                    <span class="b-btn__text">Сбросить</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__row">
+                <div class="grid__column-9">
+                    <div class="b-content">
+                        {{ category.text | safe }}
+                    </div>
+                </div>
+                <div class="grid__column-4 grid__offset">
+                    {% for category_image in category.images.all %}
+                        <div class="b-box__image-fullsize">
+                            <img src="{{ category_image.image.url }}" alt="Пример Продукта">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if category.popularproduct.all %}
+        <div class="b-section">
+        <div class="b-layout">
+            <div class="grid__row">
+                <h3 class="subheading">Популярные товары</h3>
+                {% for popularproduct in category.popularproduct.all %}
+                    {% if forloop.counter > 1 %}
+                        <div class="grid__column-4 grid__offset">
+                    {% else %}
+                        <div class="grid__column-4">
+                    {% endif %}
+                <a class="b-link_pseudo"
+                   href="{% url 'catalog_category' popularproduct.product|get_full_product_path %}">
+                    <div class="b-box">
+                        <div class="b-box__wrapper">
+                            <div class="b-box__image-left">
+                                {% if popularproduct.product.images.first %}
+                                    <img src="{{ popularproduct.product.images.first.image.url }}"
+                                         alt="Пример Продукта">
+                                {% else %}
+                                    <img src="{% static 'img/products/product_sale.png' %}" alt="Пример Продукта">
+                                {% endif %}
+                            </div>
+                            <p class="b-box__author">
+                                {{ popularproduct.product.category.name }}
+                            </p>
+                            <p class="b-box__text">
+                                {{ popularproduct.product.name }}
+                            </p>
+                            {% if popularproduct.type == 0 %}
+                                <div class="b-box__sale">Хит</div>
+                            {% elif popularproduct.type == 1 %}
+                                <div class="b-box__sale">Скидка!</div>
+                            {% elif popularproduct.type == 2 %}
+                                <div class="b-box__sale">Новинка</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'blocks/bottom.html' %}
+{% endblock %}
+
+{% block extra-html %}
+    <div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="#" class="modal__close close" data-dismiss="modal" aria-label="Close"></a>
+
+                <div class="modal-body">
+                    <div class="b-block__item__wrapper">
+                        <div class="b-block__item__title b-block__item__title_small b-block__item__title_left">
+                            Заказать продукцию
+                        </div>
+                        <div class="b-section__space"></div>
+                        <form class="b-form" method="post" action="{{ request.path }}?expand=false" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="b-form-group">
+                                <input type="text" class="b-form-control" placeholder="Ваше имя"
+                                       id="id_name" maxlength="200" name="name" required="">
+                            </div>
+
+                            <div class="b-form-group">
+                                <input class="b-form-control" placeholder="Контактный телефон"
+                                       id="id_phone" maxlength="50" name="phone">
+                            </div>
+                            <div class="b-form-group">
+                                <input class="b-form-control" placeholder="Email"
+                                       id="id_email" name="email" type="email" required="">
+                            </div>
+                            <div class="b-form-group">
+                                <input type="file" id="id_file_field" name="file_field" multiple="">
+                                {% comment %}<i class="fa fa-paperclip pull-right" aria-hidden="true"></i>{% endcomment %}
+                            </div>
+                            <div class="b-form-group">
+                                <textarea id="id_comment" maxlength="500" name="comment" required=""
+                                          class="b-form-control" rows="4" placeholder="Комментарий"></textarea>
+                            </div>
+                            <input id="id_product" maxlength="500" name="product" type="hidden" value="">
+                            <input id="id_count" maxlength="500" name="count" type="hidden" value="1">
+                            <button type="submit" class="b-btn b-btn__fullwidth">
+                                <span class="b-btn__text">Отправить</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra-js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            {% comment %}начало автогенерируемого кода{% endcomment %}
+            {% for property in properties_objs %}
+                {% if property.filterable %}
+                    var slider{{ forloop.counter }} = document.getElementById('js-slider-{{ forloop.counter }}');
+                    noUiSlider.create(slider{{ forloop.counter }}, {
+                        start: [{{ property.get_min }}, {{ property.get_max }}],
+                        connect: true,
+                        range: {
+                            'min': Math.round({{ property.min }}), // любое минимальное значение
+                            'max': Math.round({{ property.max }})   // любое максимальное значение
+                        }
+                    });
+
+                    var min_input_{{ forloop.counter }} = document.getElementById('id_{{ forloop.counter }}_1');
+                    var max_input_{{ forloop.counter }} = document.getElementById('id_{{ forloop.counter }}_2');
+                    slider{{ forloop.counter }}.noUiSlider.on('update', function (values, handle) {
+
+                        var value = values[handle];
+
+                        if (handle) {
+                            max_input_{{ forloop.counter }}.value = Math.round(value);
+                        } else {
+                            min_input_{{ forloop.counter }}.value = Math.round(value);
+                        }
+                    });
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#order').on('show.bs.modal', function (e) {
+
+                //get data-id attribute of the clicked element
+                var productId = $(e.relatedTarget).data('product-id');
+
+                //populate the textbox
+                $(e.currentTarget).find('input[name="product"]').val(productId);
+            });
+        });
+    </script>
+{% endblock %}
